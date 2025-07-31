@@ -19,7 +19,7 @@ public class LoadedClass {
     private String fqcn;
 
     /**
-     * The dependency from which the given class is loaded.
+     * The class-path-entry from which the given class is loaded.
      */
-    private Dependency dependency;
+    private ClassPathEntry classPathEntry;
 }
