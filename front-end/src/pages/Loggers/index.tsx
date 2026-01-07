@@ -16,7 +16,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import { App, Tabs, type TabsProps } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -25,8 +25,8 @@ import { fetchData, filterLoggerGroups, filterLoggers } from "helpers";
 import { ELoggersTabs, type ILoggersResponseBody, StatefulRequest, StatelessRequest } from "models";
 import { getLoggersData, resetLogger } from "services";
 
-import { Logger } from "./Logger";
 import { LoggerGroups } from "./LoggerGroups";
+import { LoggersList } from "./LoggersList";
 import styles from "./styles.module.css";
 
 const Loggers = () => {
@@ -80,7 +80,7 @@ const Loggers = () => {
     const loggerGroupsAddonAffter = `${effectiveLoggerGroups.length} / ${loggerGroups.length}`;
     const addonAfter = isLoggersTab ? loggersAddonAfter : loggerGroupsAddonAffter;
 
-    const handleLoggerReset = (e: MouseEvent, loggerName: string) => {
+    const handleLoggerReset = (e: MouseEvent, loggerName: string): void => {
         e.stopPropagation();
         e.preventDefault();
 
@@ -99,15 +99,12 @@ const Loggers = () => {
             label: t("Loggers.loggers"),
             children: (
                 <EmptyHandler isEmpty={effectiveLoggers.length === 0}>
-                    {effectiveLoggers.map((logger) => (
-                        <Logger
-                            logger={logger}
-                            levels={levels}
-                            setUpdateLoggerLevel={setUpdateLoggerLevel}
-                            handleReset={handleLoggerReset}
-                            key={logger.name}
-                        />
-                    ))}
+                    <LoggersList
+                        effectiveLoggers={effectiveLoggers}
+                        levels={levels}
+                        setUpdateLoggerLevel={setUpdateLoggerLevel}
+                        handleReset={handleLoggerReset}
+                    />
                 </EmptyHandler>
             ),
         },
