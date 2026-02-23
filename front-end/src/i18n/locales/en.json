@@ -69,7 +69,7 @@
         "loggerGroups": "Logger groups",
         "configuredExplicitly": "Configured explicitly",
         "loggerLevelUpdated": "Level has been changed",
-        "reset": "Reset"
+        "reset" : "The logger was successfully reset"
     },
     "Header": {
         "dashboard": "Dashboard",

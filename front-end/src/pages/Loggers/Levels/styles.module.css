@@ -1,10 +1,7 @@
 .MainWrapper {
     display: flex;
-    column-gap: 8px;
-}
-
-.LevelsWrapper {
-    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .RadioGroupWrapper {

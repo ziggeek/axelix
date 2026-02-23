@@ -28,6 +28,8 @@ import { Levels } from "../Levels";
 
 import styles from "./styles.module.css";
 
+import { Reset } from "assets";
+
 interface IProps {
     /**
      * All possible logging levels that are supported by the logging system inside the instance
@@ -41,9 +43,14 @@ interface IProps {
      * setState to update the logger level
      */
     setUpdateLoggerLevel: Dispatch<SetStateAction<StatelessRequest>>;
+
+    /**
+     * The function to handle the reset of this given logger
+     */
+    handleReset: (mouseEvent: any, loggerName: string) => void;
 }
 
-export const Logger = ({ levels, logger, setUpdateLoggerLevel }: IProps) => {
+export const Logger = ({ levels, logger, setUpdateLoggerLevel, handleReset }: IProps) => {
     const { effectiveLevel, configuredLevel } = logger;
     const { instanceId } = useParams();
 
@@ -70,12 +77,15 @@ export const Logger = ({ levels, logger, setUpdateLoggerLevel }: IProps) => {
         <div className={styles.MainWrapper}>
             <TooltipWithCopy text={logger.name} />
 
-            <Levels
-                checkedLevel={effectiveLevel}
-                configuredLevel={configuredLevel}
-                levels={levels}
-                handleChange={handleChange}
-            />
+            <div className={styles.LevelsWrapper}>
+                <Levels
+                    checkedLevel={effectiveLevel}
+                    configuredLevel={configuredLevel}
+                    levels={levels}
+                    handleChange={handleChange}
+                />
+                <Reset className={styles.Reset} onClick={(e) => handleReset(e, logger.name)} color="#FF000AFF" />
+            </div>
         </div>
     );
 };

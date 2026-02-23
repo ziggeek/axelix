@@ -75,6 +75,18 @@ export interface ISetLoggerLevelRequestData {
     loggingLevel: string;
 }
 
+export interface IResetLoggerLevelRequestData {
+    /**
+     * Instance id
+     */
+    instanceId: string;
+
+    /**
+     * Logger name
+     */
+    loggerName: string;
+}
+
 export interface IChangeLoggerGroupLevelRequestData {
     /**
      * Instance id of service

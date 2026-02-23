@@ -23,7 +23,7 @@ import { useParams } from "react-router-dom";
 import { EmptyHandler, Loader, PageSearch } from "components";
 import { fetchData, filterLoggerGroups, filterLoggers } from "helpers";
 import { ELoggersTabs, type ILoggersResponseBody, StatefulRequest, StatelessRequest } from "models";
-import { getLoggersData } from "services";
+import { getLoggersData, resetLogger } from "services";
 
 import { Logger } from "./Logger";
 import { LoggerGroups } from "./LoggerGroups";
@@ -34,7 +34,7 @@ const Loggers = () => {
     const { instanceId } = useParams();
     const { message } = App.useApp();
 
-    const [activeKey, setActiveKey] = useState<ELoggersTabs>(ELoggersTabs.LOGGERS);
+    const [activeTab, setActiveTab] = useState<ELoggersTabs>(ELoggersTabs.LOGGERS);
     const [loggersData, setLoggersData] = useState(StatefulRequest.loading<ILoggersResponseBody>());
     const [search, setSearch] = useState<string>("");
     const [updateLoggerLevel, setUpdateLoggerLevel] = useState(StatelessRequest.inactive());
@@ -70,8 +70,8 @@ const Loggers = () => {
     const loggerGroups = loggersData.response!.groups;
     const loggers = loggersData.response!.loggers;
 
-    const isLoggersTab = activeKey === ELoggersTabs.LOGGERS;
-    const isLoggerGroupsTab = activeKey === ELoggersTabs.LOGGER_GROUPS;
+    const isLoggersTab = activeTab === ELoggersTabs.LOGGERS;
+    const isLoggerGroupsTab = activeTab === ELoggersTabs.LOGGER_GROUPS;
 
     const effectiveLoggers = isLoggersTab && search ? filterLoggers(loggers, search) : loggers;
     const effectiveLoggerGroups = isLoggerGroupsTab && search ? filterLoggerGroups(loggerGroups, search) : loggerGroups;
@@ -79,6 +79,19 @@ const Loggers = () => {
     const loggersAddonAfter = `${effectiveLoggers.length} / ${loggers.length}`;
     const loggerGroupsAddonAffter = `${effectiveLoggerGroups.length} / ${loggerGroups.length}`;
     const addonAfter = isLoggersTab ? loggersAddonAfter : loggerGroupsAddonAffter;
+
+    const handleLoggerReset = (e: MouseEvent, loggerName: string) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        resetLogger({
+            instanceId: instanceId!,
+            loggerName: loggerName,
+        }).then(() => {
+            message.success(t("Loggers.reset"));
+            fetchLoggersData(instanceId!);
+        });
+    };
 
     const tabs: TabsProps["items"] = [
         {
@@ -91,6 +104,7 @@ const Loggers = () => {
                             logger={logger}
                             levels={levels}
                             setUpdateLoggerLevel={setUpdateLoggerLevel}
+                            handleReset={handleLoggerReset}
                             key={logger.name}
                         />
                     ))}
@@ -114,22 +128,22 @@ const Loggers = () => {
 
     const handleTabChange = (activeKey: string): void => {
         setSearch("");
-        setActiveKey(activeKey as ELoggersTabs);
+        setActiveTab(activeKey as ELoggersTabs);
     };
 
     return (
         <>
             <div className={styles.FirstSection}>
-                <PageSearch addonAfter={addonAfter} setSearch={setSearch} key={activeKey} />
+                <PageSearch addonAfter={addonAfter} setSearch={setSearch} key={activeTab} />
                 <Tabs
-                    activeKey={activeKey}
+                    activeKey={activeTab}
                     onChange={handleTabChange}
                     size="small"
                     items={tabs.map((tab) => ({ key: tab.key, label: tab.label }))}
                 />
             </div>
 
-            {tabs.find((tab) => tab.key === activeKey)!.children}
+            {tabs.find((tab) => tab.key === activeTab)!.children}
         </>
     );
 };

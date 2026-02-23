@@ -16,7 +16,11 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import { apiFetch } from "api";
-import type { IChangeLoggerGroupLevelRequestData, ISetLoggerLevelRequestData } from "models";
+import type {
+    IChangeLoggerGroupLevelRequestData,
+    IResetLoggerLevelRequestData,
+    ISetLoggerLevelRequestData,
+} from "models";
 
 export const getLoggersData = (instanceId: string) => {
     return apiFetch.get(`loggers/${instanceId}`);
@@ -28,6 +32,12 @@ export const setLoggerLevel = (data: ISetLoggerLevelRequestData) => {
     return apiFetch.post(`loggers/${instanceId}/logger/${loggerName}`, {
         configuredLevel: loggingLevel,
     });
+};
+
+export const resetLogger = (data: IResetLoggerLevelRequestData) => {
+    const { instanceId, loggerName } = data;
+
+    return apiFetch.post(`loggers/${instanceId}/logger/${loggerName}/reset`);
 };
 
 export const changeLoggerGroupLevel = (data: IChangeLoggerGroupLevelRequestData) => {

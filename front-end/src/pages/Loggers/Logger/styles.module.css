@@ -10,3 +10,19 @@
 .MainWrapper:last-child {
     border-bottom: none;
 }
+
+.LevelsWrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.Reset {
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.Reset:hover {
+    cursor: pointer;
+    background-color: var(--axelix-primary-light-red);
+}

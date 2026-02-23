@@ -24,7 +24,6 @@ export { default as ThreadDumpIcon } from "../assets/icons/threadDump.svg?react"
 export { default as CheckmarkIcon } from "../assets/icons/checkmark.svg?react";
 export { default as DownloadIcon } from "../assets/icons/download.svg?react";
 export { default as InsightsIcon } from "../assets/icons/insights.svg?react";
-export { default as MappingsIcon } from "../assets/icons/mappings.svg?react";
 export { default as QuestionIcon } from "../assets/icons/question.svg?react";
 export { default as SettingsIcon } from "../assets/icons/settings.svg?react";
 export { default as DetailsIcon } from "../assets/icons/details.svg?react";
@@ -53,3 +52,4 @@ export { default as JVMIcon } from "../assets/icons/jvm.svg?react";
 export { default as GitIcon } from "../assets/icons/git.svg?react";
 export { default as RunIcon } from "../assets/icons/run.svg?react";
 export { default as GCIcon } from "../assets/icons/gc.svg?react";
+export { default as Reset } from "../assets/icons/reset.svg?react";
