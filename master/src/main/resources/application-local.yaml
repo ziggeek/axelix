@@ -7,7 +7,8 @@ axelix:
       auto: true
       platform: kubernetes
       kubernetes:
-        kube-apiserver-url: https://158.160.194.14:443
+        # Should be provided by the local-launch configuration
+        kube-apiserver-url:
         # Should be set-up in local .env file or by any other means
         sa-token-path: ${SA_TOKEN_PATH:}
         ca-cert-path: ${CA_CERT_PATH:}
@@ -17,6 +18,7 @@ axelix:
       jwt:
         algorithm: HMAC512
         lifespan: 12h
+        # Random singing key for local development
         signing-key: 22573444698685aa77750b88ad6e99ef1f94a7a909bc7df63f7a80666208c201ab7a584e6e05e6c9d0aa94b723f843ff
       static-admin:
         credentials:

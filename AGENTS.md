@@ -2,7 +2,7 @@
 
 ## Overview 
 
-This repository contains the source code of [Axelix](https://www.rabbitmq.com/) project. Axelix is the software product that helps developers and Q/A engineers to debug/test/monitor Spring Boot Java/Kotlin applications.
+This repository contains the source code of [Axelix](https://www.axelix.io/) project. Axelix is the software product that helps developers and Q/A engineers to debug/test/monitor Spring Boot Java/Kotlin applications.
 
 ### Architecture
 

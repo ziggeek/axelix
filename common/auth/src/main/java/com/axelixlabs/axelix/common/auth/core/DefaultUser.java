@@ -76,6 +76,6 @@ public final class DefaultUser implements User {
 
     @Override
     public String toString() {
-        return "DefaultUser[" + "username=" + username + ", password=" + password + ", roles=" + roles + ']';
+        return "DefaultUser[" + "username=" + username + ", roles=" + roles + ']';
     }
 }
