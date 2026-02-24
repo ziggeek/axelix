@@ -136,9 +136,9 @@ public final class SingleCache {
                 + ", cacheManager='"
                 + cacheManager
                 + '\''
-                + ", hitsCount="
+                + ", hits="
                 + hits
-                + ", missesCount="
+                + ", misses="
                 + misses
                 + ", estimatedEntrySize="
                 + estimatedEntrySize
