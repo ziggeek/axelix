@@ -19,6 +19,7 @@ package com.axelixlabs.axelix.sbs.spring.autoconfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,7 @@ import com.axelixlabs.axelix.sbs.spring.core.auth.DefaultSecurityManager;
 import com.axelixlabs.axelix.sbs.spring.core.auth.JwtAuthorizationFilter;
 import com.axelixlabs.axelix.sbs.spring.core.auth.PassthroughAuthorityResolver;
 import com.axelixlabs.axelix.sbs.spring.core.auth.SecurityManager;
-import com.axelixlabs.axelix.sbs.spring.core.config.AuthConfigurationProperties;
+import com.axelixlabs.axelix.sbs.spring.core.config.AuthProperties;
 
 /**
  * {@link AutoConfiguration} for JWT-based authentication support.
@@ -42,12 +43,18 @@ import com.axelixlabs.axelix.sbs.spring.core.config.AuthConfigurationProperties;
  * @since 22.07.2025
  */
 @AutoConfiguration
-@EnableConfigurationProperties(AuthConfigurationProperties.class)
+@EnableConfigurationProperties // required for JwtAuthAutoConfigurationTest to run
 public class JwtAuthAutoConfiguration {
 
     @Bean
+    @ConfigurationProperties(prefix = "axelix.sbs.auth")
+    public AuthProperties authProperties() {
+        return new AuthProperties();
+    }
+
+    @Bean
     @ConditionalOnMissingBean
-    public JwtDecoderService jwtDecoderService(AuthConfigurationProperties configurationProperties) {
+    public JwtDecoderService jwtDecoderService(AuthProperties configurationProperties) {
         return new DefaultJwtDecoderService(
                 configurationProperties.getJwt().getAlgorithm(),
                 configurationProperties.getJwt().getSigningKey());

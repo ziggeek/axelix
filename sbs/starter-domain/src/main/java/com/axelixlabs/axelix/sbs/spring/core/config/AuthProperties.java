@@ -17,8 +17,6 @@
  */
 package com.axelixlabs.axelix.sbs.spring.core.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import com.axelixlabs.axelix.common.auth.core.JwtAlgorithm;
 
 /**
@@ -26,10 +24,8 @@ import com.axelixlabs.axelix.common.auth.core.JwtAlgorithm;
  *
  * @author Mikhail Polivakha
  */
-// TODO: Revisit null away suppression after thinking about sensible defaults for configuration properties.
-@SuppressWarnings("NullAway")
-@ConfigurationProperties(prefix = "axelix.sbs.auth")
-public class AuthConfigurationProperties {
+@SuppressWarnings("NullAway.Init")
+public class AuthProperties {
 
     /**
      * JWT related configuration
@@ -39,12 +35,12 @@ public class AuthConfigurationProperties {
     public static class Jwt {
 
         /**
-         * The algorithm used for JWS creation inside the authentication tokens.
+         * The algorithm used for JWS creation inside the authentication tokens. Cannot be {@code null}.
          */
         private JwtAlgorithm algorithm;
 
         /**
-         * The key that should be used when verifying the JWS.
+         * The key that should be used when verifying the JWS. Cannot be {@code null}.
          */
         private String signingKey;
 
@@ -71,7 +67,7 @@ public class AuthConfigurationProperties {
         return jwt;
     }
 
-    public AuthConfigurationProperties setJwt(Jwt jwt) {
+    public AuthProperties setJwt(Jwt jwt) {
         this.jwt = jwt;
         return this;
     }
