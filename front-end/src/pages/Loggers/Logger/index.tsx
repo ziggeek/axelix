@@ -16,7 +16,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import type { AxiosError } from "axios";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, MouseEvent, SetStateAction } from "react";
 import { useParams } from "react-router-dom";
 
 import { TooltipWithCopy } from "components";
@@ -47,7 +47,7 @@ interface IProps {
     /**
      * The function to handle the reset of this given logger
      */
-    handleReset: (mouseEvent: any, loggerName: string) => void;
+    handleReset: (_: MouseEvent, loggerName: string) => void;
 }
 
 export const Logger = ({ levels, logger, setUpdateLoggerLevel, handleReset }: IProps) => {

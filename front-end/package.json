@@ -17,6 +17,7 @@
     "dependencies": {
         "@ant-design/icons": "^6.1.0",
         "@reduxjs/toolkit": "^2.9.0",
+        "@tanstack/react-virtual": "^3.13.17",
         "antd": "^6.0.0",
         "axios": "^1.12.2",
         "cronstrue": "^3.11.0",
